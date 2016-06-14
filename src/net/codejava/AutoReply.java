@@ -76,20 +76,26 @@ public class AutoReply extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		PrintWriter out = response.getWriter();
+		//PrintWriter out = response.getWriter();
 	    //response.setContentType("text/html");
-		String q=request.getParameter("mytext");
+		String ans = "";
+        String q=request.getParameter("mytext");
 		try 
 		{
 			q1 = BestMatch.BestQuery(q,NonKeywords, query);
-			out.println("<html><body>");
-			out.println("<h3>"+query.get(q1)+"</h3>");
-			out.println("</body></html>");
+			//out.println("<html><body>");
+			ans = query.get(q1);
+			ans = escape(ans);
+			ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
+			//out.println("<h3>"+ans+"</h3>");
+			//out.println("</body></html>");
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
+		request.setAttribute("ans", ans);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**
@@ -98,5 +104,38 @@ public class AutoReply extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		doGet(request, response);
+	}
+	
+	public static String escape(String s) {
+	    StringBuilder builder = new StringBuilder();
+	    boolean previousWasASpace = false;
+	    for( char c : s.toCharArray() ) {
+	        if( c == ' ' ) {
+	            if( previousWasASpace ) {
+	                builder.append("&nbsp;");
+	                previousWasASpace = false;
+	                continue;
+	            }
+	            previousWasASpace = true;
+	        } else {
+	            previousWasASpace = false;
+	        }
+	        switch(c) {
+	            case '<': builder.append("&lt;"); break;
+	            case '>': builder.append("&gt;"); break;
+	            case '&': builder.append("&amp;"); break;
+	            case '"': builder.append("&quot;"); break;
+	            case '\n': builder.append("<br>"); break;
+	            // We need Tab support here, because we print StackTraces as HTML
+	            case '\t': builder.append("&nbsp; &nbsp; &nbsp;"); break;  
+	            default:
+	                if( c < 128 ) {
+	                    builder.append(c);
+	                } else {
+	                    builder.append("&#").append((int)c).append(";");
+	                }    
+	        }
+	    }
+	    return builder.toString();
 	}
 }
