@@ -32,6 +32,7 @@ public class AutoReply extends HttpServlet {
 	Map<String, String> query, original;
 	Properties properties, originalProperties;
 	String[] NonKeywords;
+	String q1;
     public AutoReply() throws FileNotFoundException 
     {
         super();
@@ -80,9 +81,9 @@ public class AutoReply extends HttpServlet {
 		String q=request.getParameter("mytext");
 		try 
 		{
-			String q1 = BestMatch.BestQuery(q,NonKeywords, query);
+			q1 = BestMatch.BestQuery(q,NonKeywords, query);
 			out.println("<html><body>");
-			out.println("<h1>Welcome, "+query.get(q1)+"</h1>");
+			out.println("<h3>"+query.get(q1)+"</h3>");
 			out.println("</body></html>");
 		} 
 		catch (Exception e) 
@@ -94,11 +95,8 @@ public class AutoReply extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	/*
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	*/
 }
