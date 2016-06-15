@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,16 +20,10 @@ import javax.swing.JOptionPane;
 
 import services.BestMatch;
 
-/**
- * Servlet implementation class AutoReply
- */
 @WebServlet("/AutoReply")
 public class AutoReply extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
 	Map<String, String> query, original;
 	Properties properties, originalProperties;
 	String[] NonKeywords;
@@ -66,29 +61,18 @@ public class AutoReply extends HttpServlet {
 		{
 			original.put(key, originalProperties.get(key).toString());
 		}
-		
-		
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		//PrintWriter out = response.getWriter();
-	    //response.setContentType("text/html");
 		String ans = "";
         String q=request.getParameter("mytext");
 		try 
 		{
 			q1 = BestMatch.BestQuery(q,NonKeywords, query);
-			//out.println("<html><body>");
 			ans = query.get(q1);
 			ans = escape(ans);
 			ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
-			//out.println("<h3>"+ans+"</h3>");
-			//out.println("</body></html>");
 		} 
 		catch (Exception e) 
 		{
@@ -98,44 +82,55 @@ public class AutoReply extends HttpServlet {
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		doGet(request, response);
 	}
 	
-	public static String escape(String s) {
+	public static String escape(String s) 
+	{
 	    StringBuilder builder = new StringBuilder();
 	    boolean previousWasASpace = false;
-	    for( char c : s.toCharArray() ) {
-	        if( c == ' ' ) {
-	            if( previousWasASpace ) {
+	    for( char c : s.toCharArray() ) 
+	    {
+	        if( c == ' ' ) 
+	        {
+	            if( previousWasASpace ) 
+	            {
 	                builder.append("&nbsp;");
 	                previousWasASpace = false;
 	                continue;
 	            }
 	            previousWasASpace = true;
-	        } else {
+	        } 
+	        else 
+	        {
 	            previousWasASpace = false;
 	        }
-	        switch(c) {
+	        switch(c) 
+	        {
 	            case '<': builder.append("&lt;"); break;
 	            case '>': builder.append("&gt;"); break;
 	            case '&': builder.append("&amp;"); break;
 	            case '"': builder.append("&quot;"); break;
 	            case '\n': builder.append("<br>"); break;
-	            // We need Tab support here, because we print StackTraces as HTML
 	            case '\t': builder.append("&nbsp; &nbsp; &nbsp;"); break;  
 	            default:
-	                if( c < 128 ) {
+	                if( c < 128 ) 
+	                {
 	                    builder.append(c);
-	                } else {
+	                } 
+	                else 
+	                {
 	                    builder.append("&#").append((int)c).append(";");
 	                }    
 	        }
 	    }
-	    return builder.toString();
+	    String converted = builder.toString();
+        String str = "(?i)\\b((?:https?://|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:\'\".,<>?«»“”‘’]))";
+        Pattern patt = Pattern.compile(str);
+        Matcher matcher = patt.matcher(converted);
+        converted = matcher.replaceAll("<a href=\"$1\">$1</a>");
+        return converted;
 	}
 }

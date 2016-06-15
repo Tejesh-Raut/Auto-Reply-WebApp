@@ -32,11 +32,6 @@ public class AutoReplyAdmin
 {
 	public static void main (String Args[]) throws Exception
 	{
-		//InputStreamReader read = new InputStreamReader(System.in);
-		//BufferedReader in = new BufferedReader(read);
-		
-		//int ch = 1;
-
 		Map<String, String> query = new HashMap<String, String>();
 		Map<String, String> original = new HashMap<String, String>();
 		Properties properties = new Properties();
@@ -47,74 +42,49 @@ public class AutoReplyAdmin
 		scanner.close();
 		String[] NonKeywords = NonKeywordsString.split("\\s+");
 		
-		//*JTextArea jTextArea = new JTextArea(20, 37);
-		//*JTextArea inputArea = new JTextArea(10, 37);
-		//jTextArea.append( "Hello World.-----------------------------------------------------" );
 		final JFrame frame = new JFrame("Auto Reply selector");
 		frame.setVisible(true);
 		frame.setSize(550,600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//*TextAreaOutputStream taOutputStream = new TextAreaOutputStream(jTextArea, "");
-
-	    
 		
 		JPanel panel1 = new JPanel(new GridLayout(5, 1, 10, 20));
 		JPanel panel2 = new JPanel(new GridLayout(5, 1, 10, 20));
-		//*JPanel panel3 = new JPanel(new BorderLayout());
 		JPanel panel = new JPanel(new BorderLayout(10,10));
 		panel.add(panel1, BorderLayout.WEST);
 		panel.add(panel2, BorderLayout.EAST);
-		//*panel.add(panel3, BorderLayout.CENTER);
 		frame.add(panel);
-		
-		
-		//*panel3.add(inputArea, BorderLayout.SOUTH);
-		//*panel3.add( jTextArea, BorderLayout.NORTH );
-		//*panel3.add(new JScrollPane(jTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-		//panel3.add(new JScrollPane(inputArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-	    //*System.setOut(new PrintStream(taOutputStream));
 		
 		final JButton button1 = new JButton("Ask a query");
 		button1.setPreferredSize(new Dimension(250, 50));
 		panel1.add(button1);
-		//*button1.setActionCommand("1");
 		
 		final JButton button2 = new JButton("Display the entries");
 		button2.setPreferredSize(new Dimension(250, 50));
 		panel2.add(button2);
-		//*button2.setActionCommand("2");
 		
 		final JButton button3 = new JButton("Add entries");
 		panel1.add(button3);
-		//*button3.setActionCommand("3");
 		
 		final JButton button4 = new JButton("Load from file");
 		panel2.add(button4);
-		//*button4.setActionCommand("4");
 		
 		final JButton button5 = new JButton("Save to file");
 		panel1.add(button5);
-		//*button5.setActionCommand("5");
 		
 		final JButton button6 = new JButton("Delete an entry");
 		panel2.add(button6);
-		//*button6.setActionCommand("6");
 		
 		final JButton button7 = new JButton("Refresh the keywords");
 		panel1.add(button7);
-		//*button7.setActionCommand("7");
 		
 		final JButton button8 = new JButton("Add new nonkeywords");
 		panel2.add(button8);
-		//*button8.setActionCommand("8");
 		
 		final JButton button9 = new JButton("Add new synonyms");
 		panel1.add(button9);
-		//*button9.setActionCommand("9");
 		
 		final JButton button10 = new JButton("Terminate the program");
 		panel2.add(button10);
-		//*button10.setActionCommand("10");
 		
 		button1.setEnabled(true);
 		button2.setEnabled(true);

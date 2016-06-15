@@ -35,7 +35,6 @@ public class BestMatch
 							c++;
 						}
 					}
-					
 				}
 			}
 			if(cmax<c)
@@ -43,7 +42,6 @@ public class BestMatch
 				cmax = c;
 				s1 = s;
 			}
-		    //System.out.println(entry.getKey()+entry.getValue());
 		}
 		return s1;
 	}

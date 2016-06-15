@@ -33,10 +33,7 @@ public class KeepKeywords
 				Keywords.add(allwords[i]);
 			}
 		}
-
-
 		String listString = "";
-		
 		for (String s : Keywords)
 		{
 		    listString += s + " ";
