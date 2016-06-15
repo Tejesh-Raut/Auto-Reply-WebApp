@@ -2,15 +2,16 @@ package AdminServices;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
 public class BestMatch 
 {
-	public static String BestQuery(String q , String[] NonKeywords, Map<String, String> query) throws Exception
+	public static ArrayList<String> BestQuery(String q , String[] NonKeywords, Map<String, String> query) throws Exception
 	{
-		String s,s1, syn;
-		s1="";
+		String s, syn;
+		ArrayList<String> s1 = new ArrayList<String>();
 		String[] ss,qs, syns;
 		String[] allwords = KeepKeywords.SeparateWords(q);
 		String Keywords = KeepKeywords.Keywords(allwords, NonKeywords);
@@ -37,10 +38,15 @@ public class BestMatch
 					}
 				}
 			}
+			if(cmax == c)
+			{
+				s1.add(s);
+			}
 			if(cmax<c)
 			{
 				cmax = c;
-				s1 = s;
+				s1.clear();
+				s1.add(s);
 			}
 		}
 		return s1;

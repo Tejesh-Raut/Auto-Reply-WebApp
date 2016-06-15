@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -120,13 +121,39 @@ public class AutoReplyAdmin
             	String q = JOptionPane.showInputDialog(null,"Enter your query: ");
             	try 
             	{
-					String q1 = BestMatch.BestQuery(q,NonKeywords1, query1);
-					JTextArea msg = new JTextArea(query1.get(q1), 10, 50);
+					ArrayList<String> q1 = BestMatch.BestQuery(q,NonKeywords1, query1);
+					int dialogButton = JOptionPane.YES_NO_OPTION;
+					JTextArea msg = new JTextArea(query1.get(q1.get(0)), 10, 50);
 					msg.setLineWrap(true);
 					msg.setWrapStyleWord(true);
 	                msg.setEditable(false);
 					JScrollPane scrollPane = new JScrollPane(msg);
-					JOptionPane.showMessageDialog(null, scrollPane);
+					JPanel panel1 = new JPanel(new GridLayout(0, 1));
+					panel1.add(scrollPane);
+					panel1.add(new JLabel("Are you satisfied with the current reply?"));
+					int dialogResult = JOptionPane.showConfirmDialog(null, panel1, "", dialogButton);
+					if(dialogResult == 0)//yes option
+					{
+						
+					}
+					else //no option
+					{
+						int i =1;
+						while((dialogResult != 0)||(i<q1.size()))
+						{
+							msg = new JTextArea(query1.get(q1.get(i)), 10, 50);
+							i++;
+							scrollPane = new JScrollPane(msg);
+							panel1 = new JPanel(new GridLayout(0, 1));
+							panel1.add(scrollPane);
+							panel1.add(new JLabel("Are you satisfied with the current reply?"));
+							dialogResult = JOptionPane.showConfirmDialog(null, panel1, "", dialogButton);
+						}
+						if(i>=q1.size())
+						{
+							JOptionPane.showMessageDialog (null, "<html>These were the best matching results. <br> For better results ask your query in another way.</html>", "Reply", JOptionPane.INFORMATION_MESSAGE);
+						}
+					}
 				} 
             	catch (Exception e1) 
             	{
@@ -271,9 +298,9 @@ public class AutoReplyAdmin
 				String q = JOptionPane.showInputDialog(null,"Enter the query to be deleted: ");
 				try 
             	{
-					String q1 = BestMatch.BestQuery(q, NonKeywords1, query1);
+					ArrayList<String> q1 = BestMatch.BestQuery(q, NonKeywords1, query1);
 					int dialogButton = JOptionPane.YES_NO_OPTION;
-					JTextArea msg = new JTextArea("Would You like to remove following entry: \n"+original1.get(q1)+"\n----------------------------------------------------------------------------------------------------\n"+query1.get(q1), 10, 50);
+					JTextArea msg = new JTextArea("Would You like to remove following entry: \n"+original1.get(q1.get(0))+"\n----------------------------------------------------------------------------------------------------\n"+query1.get(q1.get(0)), 10, 50);
 					msg.setLineWrap(true);
 					msg.setWrapStyleWord(true);
 	                msg.setEditable(false);
@@ -284,7 +311,7 @@ public class AutoReplyAdmin
 						for(Iterator<Map.Entry<String, String>> it = query1.entrySet().iterator(); it.hasNext(); ) 
 						{
 						      Map.Entry<String, String> entry = it.next();
-						      if(entry.getKey().equals(q1)) 
+						      if(entry.getKey().equals(q1.get(0))) 
 						      {
 						        it.remove();
 						      }
@@ -292,7 +319,7 @@ public class AutoReplyAdmin
 						for(Iterator<Map.Entry<String, String>> it = original1.entrySet().iterator(); it.hasNext(); ) 
 						{
 						      Map.Entry<String, String> entry = it.next();
-						      if(entry.getKey().equals(q1)) 
+						      if(entry.getKey().equals(q1.get(0))) 
 						      {
 						        it.remove();
 						      }
@@ -423,6 +450,7 @@ public class AutoReplyAdmin
 		
 	}//end of main
 }//end of class AutoReply
+
 @SuppressWarnings("serial")
 class MyJOptionPane extends JOptionPane
 {
