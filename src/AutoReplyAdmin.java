@@ -139,7 +139,7 @@ public class AutoReplyAdmin
 					else //no option
 					{
 						int i =1;
-						while((dialogResult != 0)||(i<q1.size()))
+						while((dialogResult != 0)&&(i<q1.size()))
 						{
 							msg = new JTextArea(query1.get(q1.get(i)), 10, 50);
 							i++;

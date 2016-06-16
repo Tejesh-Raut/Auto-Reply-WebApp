@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -27,14 +28,16 @@ public class AutoReply extends HttpServlet {
 	Map<String, String> query, original;
 	Properties properties, originalProperties;
 	String[] NonKeywords;
-	String q1;
+	ArrayList<String> q1;
+	int i;
     public AutoReply() throws FileNotFoundException 
     {
         super();
         
         query = new HashMap<String, String>();
 		original = new HashMap<String, String>();
-		properties = new Properties();
+        i =1;
+        properties = new Properties();
 		originalProperties = new Properties();
 		Scanner scanner = new Scanner( new File("workspace/TejeshAutoReplyWeb/NonKeywords.txt"), "UTF-8" );
 		String NonKeywordsString = scanner.useDelimiter("\\A").next();
@@ -65,21 +68,49 @@ public class AutoReply extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		String ans = "";
+		String ans = " ";
         String q=request.getParameter("mytext");
-		try 
-		{
-			q1 = BestMatch.BestQuery(q,NonKeywords, query);
-			ans = query.get(q1);
-			ans = escape(ans);
-			ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-		request.setAttribute("ans", ans);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+        String submit=request.getParameter("ask");
+        String notsatisfied=request.getParameter("notsatisfied");
+        if(submit!=null)
+        {
+        	i=1;
+        	try 
+    		{
+    			q1 = BestMatch.BestQuery(q,NonKeywords, query);
+    			ans = query.get(q1.get(0));
+    			ans = escape(ans);
+    			ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
+    		} 
+    		catch (Exception e) 
+    		{
+    			e.printStackTrace();
+    		}
+    		request.setAttribute("ans", ans);
+    		request.getRequestDispatcher("index.jsp").forward(request, response);
+    		return;
+        }
+        else
+        {
+        	while((notsatisfied !=null)&&(i<q1.size()))
+        	{
+        		ans = query.get(q1.get(i));
+        		ans = escape(ans);
+        		ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
+        		request.setAttribute("ans", ans);
+        		request.getRequestDispatcher("index.jsp").forward(request, response);
+        		i++;
+        		return;
+        	}
+        	if(i>=q1.size())
+			{
+        		ans = "These were the best matching results. <br> For better results ask your query in another way.";
+        		ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
+        		request.setAttribute("ans", ans);
+        		request.getRequestDispatcher("index.jsp").forward(request, response);
+        		return;
+			}
+        }
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

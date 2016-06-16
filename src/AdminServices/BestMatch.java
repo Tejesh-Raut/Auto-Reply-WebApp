@@ -45,9 +45,14 @@ public class BestMatch
 			if(cmax<c)
 			{
 				cmax = c;
-				s1.clear();
+				s1 = new ArrayList<String>();
 				s1.add(s);
 			}
+		}
+		if(cmax == 0)
+		{
+			s1 = new ArrayList<String>();
+			s1.add("Sorry, Please ask some other query");
 		}
 		return s1;
 	}
