@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * @author Tejesh_Raut
+ *
+ */
 public class BestMatch 
 {
 	public static ArrayList<String> BestQuery(String q , String[] NonKeywords, Map<String, String> query) throws Exception
