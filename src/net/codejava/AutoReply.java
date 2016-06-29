@@ -122,7 +122,7 @@ public class AutoReply extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	public static String escape(String s) 
+	public static String escape(String s) //copied from stackoverflow
 	{
 	    StringBuilder builder = new StringBuilder();
 	    boolean previousWasASpace = false;

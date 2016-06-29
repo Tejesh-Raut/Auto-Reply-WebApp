@@ -134,7 +134,7 @@ public class AutoReplyAdmin
 					JScrollPane scrollPane = new JScrollPane(msg);
 					JPanel panel1 = new JPanel(new GridLayout(0, 1));
 					panel1.add(scrollPane);
-					panel1.add(new JLabel("Are you satisfied with the current reply?"));
+					panel1.add(new JLabel("<html>This reply corresponds to the question<br>"+original1.get(q1.get(0))+"<br>"+"Are you satisfied with the current reply?</html>"));
 					int dialogResult = JOptionPane.showConfirmDialog(null, panel1, "", dialogButton);
 					if(dialogResult == 0)//yes option
 					{
@@ -143,17 +143,17 @@ public class AutoReplyAdmin
 					else //no option
 					{
 						int i =1;
-						while((dialogResult != 0)&&(i<q1.size()))
+						while((dialogResult != 0)&&(i<q1.size())&&(i<6))
 						{
 							msg = new JTextArea(query1.get(q1.get(i)), 10, 50);
-							i++;
 							scrollPane = new JScrollPane(msg);
 							panel1 = new JPanel(new GridLayout(0, 1));
 							panel1.add(scrollPane);
-							panel1.add(new JLabel("Are you satisfied with the current reply?"));
+							panel1.add(new JLabel("<html>This reply corresponds to the question<br>"+original1.get(q1.get(i))+"<br>"+"Are you satisfied with the current reply?</html>"));
 							dialogResult = JOptionPane.showConfirmDialog(null, panel1, "", dialogButton);
+							i++;
 						}
-						if(i>=q1.size())
+						if(i>=q1.size()||(i>=6))
 						{
 							JOptionPane.showMessageDialog (null, "<html>These were the best matching results. <br> For better results ask your query in another way.</html>", "Reply", JOptionPane.INFORMATION_MESSAGE);
 						}
