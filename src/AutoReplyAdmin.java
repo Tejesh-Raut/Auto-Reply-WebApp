@@ -456,7 +456,7 @@ public class AutoReplyAdmin
 }//end of class AutoReply
 
 @SuppressWarnings("serial")
-class MyJOptionPane extends JOptionPane
+class MyJOptionPane extends JOptionPane // Template copied from https://community.oracle.com/message/6212866#6212866
 {
   public static String showInputDialog(final String message)
   {
