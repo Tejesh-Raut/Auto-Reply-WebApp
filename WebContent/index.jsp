@@ -133,7 +133,7 @@
 					</div>
 				</div>
 				<center>
-					<div style="width:700px; max-width:700px; background-color:#ddeeff; max-height:200px; overflow-y: auto; color: #555555; font-size: 0.9em; LINE-HEIGHT:20px; padding-left: 1em; text-align:left;" >${ans}</div>
+					<div style="width:700px; max-width:700px; background-color:#ccddee; max-height:200px; overflow-y: auto; color: #555555; font-size: 0.9em; LINE-HEIGHT:20px; padding-left: 1em; text-align:left;" >${ans}</div>
 				</center>
 				<div class="jsb" style="padding-top:18px">
 					<center><input type="submit" value="Not satisfied" name="notsatisfied" aria-label="Not satisfied" ></center>

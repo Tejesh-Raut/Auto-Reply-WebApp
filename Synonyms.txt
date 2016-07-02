@@ -38,3 +38,4 @@ personal private
 details detail
 information info
 charge charged charging
+PC computer
