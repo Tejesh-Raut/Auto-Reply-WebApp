@@ -2,6 +2,27 @@
     <wb-module deploy-name="TejeshAutoReplyWeb">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="httpclient-osgi-4.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/techmahindra/workspace/TejeshAutoReplyWeb/WebContent/WEB-INF/lib/httpclient-osgi-4.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org-apache-commons-logging.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/techmahindra/workspace/TejeshAutoReplyWeb/WebContent/WEB-INF/lib/org-apache-commons-logging.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="googlecollection-exp.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/techmahindra/workspace/TejeshAutoReplyWeb/WebContent/WEB-INF/lib/googlecollection-exp.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.google.common_1.0.0.201004262004.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/techmahindra/workspace/TejeshAutoReplyWeb/WebContent/WEB-INF/lib/com.google.common_1.0.0.201004262004.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gson-2.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/techmahindra/workspace/TejeshAutoReplyWeb/WebContent/WEB-INF/lib/gson-2.2.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-exec-1.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/techmahindra/workspace/TejeshAutoReplyWeb/WebContent/WEB-INF/lib/commons-exec-1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="guava-15.0-rc1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/techmahindra/workspace/TejeshAutoReplyWeb/WebContent/WEB-INF/lib/guava-15.0-rc1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="TejeshAutoReplyWeb"/>
         <property name="java-output-path" value="/TejeshAutoReplyWeb/build/classes"/>
     </wb-module>

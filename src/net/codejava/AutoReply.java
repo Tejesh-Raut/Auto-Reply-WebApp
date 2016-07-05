@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
+import AdminServices.Special;
 import services.BestMatch;
 
 /**
@@ -82,9 +84,17 @@ public class AutoReply extends HttpServlet {
         	try 
     		{
     			q1 = BestMatch.BestQuery(q,NonKeywords, query);
-    			ans = query.get(q1.get(0));
-    			ans = escape(ans);
-    			ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
+    			if(q1.get(0)=="*")//special query
+				{
+					ans = Special.Reply(q1.get(1), q1.get(2), q1.get(3));
+        			ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
+				}
+    			else
+    			{
+    				ans = query.get(q1.get(0));
+        			ans = escape(ans);
+        			ans = "<h3><p align=\"left\">" + ans + "</p></h3>";
+    			}
     		} 
     		catch (Exception e) 
     		{

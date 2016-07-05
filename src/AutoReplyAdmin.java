@@ -28,6 +28,7 @@ import javax.swing.JTextArea;
 
 import AdminServices.BestMatch;
 import AdminServices.KeepKeywords;
+import AdminServices.Special;
 
 /**
  * @author Tejesh_Raut
@@ -126,8 +127,18 @@ public class AutoReplyAdmin
             	try 
             	{
 					ArrayList<String> q1 = BestMatch.BestQuery(q,NonKeywords1, query1);
+					JTextArea msg;
+					if(q1.get(0)=="*")//special query
+					{
+						String a;
+						a = Special.Reply(q1.get(1), q1.get(2), q1.get(3));
+						msg = new JTextArea(a, 10, 50);
+					}
+					else
+					{
+						msg = new JTextArea(query1.get(q1.get(0)), 10, 50);
+					}
 					int dialogButton = JOptionPane.YES_NO_OPTION;
-					JTextArea msg = new JTextArea(query1.get(q1.get(0)), 10, 50);
 					msg.setLineWrap(true);
 					msg.setWrapStyleWord(true);
 	                msg.setEditable(false);
