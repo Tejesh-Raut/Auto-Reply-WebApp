@@ -34,7 +34,10 @@ public class Special
 			driver.findElement(By.xpath("//select[@id='wdfdest1']/option[contains(text(), '" + c + "')]")).click();
 			driver.findElement(By.xpath(".//*[@id='mainform']/table/tbody/tr[3]/td/table/tbody/tr/td/input")).click();
 			WebDriverWait wait2 = new WebDriverWait(driver, 40);
-			WebElement element2 = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.className("totaloriginalprice")));
+			WebElement element2 = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='mainform']/table/tbody/tr[8]/td/table/tbody/tr/td/input[3]")));
+			driver.findElement(By.xpath(".//*[@id='mainform']/table/tbody/tr[8]/td/table/tbody/tr/td/input[3]")).click();
+			WebDriverWait wait3 = new WebDriverWait(driver, 40);
+			WebElement element3 = wait3.until(ExpectedConditions.visibilityOfElementLocated(By.className("totaloriginalprice")));
 			String price = driver.findElement(By.className("totaloriginalprice")).getText();
 			ans = "Total price including taxes is " + price;
 			driver.close();

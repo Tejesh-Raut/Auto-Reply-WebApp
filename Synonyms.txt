@@ -39,3 +39,4 @@ details detail
 information info
 charge charged charging
 PC computer
+PC computer
